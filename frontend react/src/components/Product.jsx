@@ -4,6 +4,7 @@ import { useState } from "react";
 import AppContext from "../Context/Context";
 import axios from "../axios";
 import UpdateProduct from "./UpdateProduct";
+import API from "../axios";
 const Product = () => {
   const { id } = useParams();
   const { data, addToCart, removeFromCart, cart, refreshData } =
@@ -15,8 +16,8 @@ const Product = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/product/${id}`
+        const response = await API.get(
+          `/product/${id}`
         );
         setProduct(response.data);
         if (response.data.imageName) {
@@ -29,7 +30,7 @@ const Product = () => {
 
     const fetchImage = async () => {
       const response = await axios.get(
-        `http://localhost:8080/api/product/${id}/image`,
+        `/product/${id}/image`,
         { responseType: "blob" }
       );
       setImageUrl(URL.createObjectURL(response.data));
@@ -40,7 +41,7 @@ const Product = () => {
 
   const deleteProduct = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/product/${id}`);
+      await axios.delete(`/product/${id}`);
       removeFromCart(id);
       console.log("Product deleted successfully");
       alert("Product deleted successfully");
