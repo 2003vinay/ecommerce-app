@@ -8,6 +8,6 @@ services:
       - "80:80" 
 
   backend:
-    build: ./ecom_backend
+    build: ./ecom_back
     ports:
       - "8080:8080"
